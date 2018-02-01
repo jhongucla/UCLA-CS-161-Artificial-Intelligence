@@ -1,0 +1,62 @@
+Justin Hong
+604565186
+
+1.  b)
+
+	To ensure that Pr(D|T) >= 0.3, the constraints given by sensitivity analysis are:
+
+	P(D=Yes) >= 0.008322
+	P(T=Positive | D=No) <= 0.002386
+
+	Thus the prior probability of having the disease must be at least 0.008322
+	and the probability of a false positive for the test must be at most 0.002386.
+	The probability of a false negative for the test does not need to be constrained.
+
+2.  a)
+
+	The most likely instantiation of all variables given that Sambot has 
+	sensed the lights to be on, but has sensed no bark is as follows:
+
+	Battery: OK
+	DogBarking: No
+	DogBowelTrouble: Yes
+	DogOutside: Yes
+	ExpectingGuests: No
+	FamilyHome: No
+	LightSensor: On
+	LightSensorHealth: OK
+	SoundSensor: Off
+	SoundSensorHealth: OK
+
+	I obtained this answer by showing the monitor for OutdoorLight and HearableBarking
+	and setting OutdoorLight to On and HearableBarking to No and then running MPE computation.
+	This gave me the values for each variable and the values P(mpe,e) = 0.153 and P(mpe|e) = 0.370.
+
+	b)
+
+	The most likely instantiation of the sensors given that the family is home 
+	and no guests are expected is as follows:
+
+	Battery: OK
+	LightSensor: Off
+	LightSensorHealth: OK
+	SoundSensor: Off
+	SoundSensorHealth: OK
+
+	I obtained this answer by showing the monitor for FamilyHome and ExpectingGuests and 
+	setting FamilyHome to Yes and ExpectingGuests to No and then running MPE computations. 
+	This gave me the values for the sensor variables and the values 
+	P(mpe,e) = 0.030 and P(mpe|e) = 0.157.
+
+	c)
+
+	The smallest set of variables Z is Z = {FamilyHome, Battery}. In the network, FamilyHome 
+	diverges in a path between SoundSensor and LightSensor. Battery is also directly divergent 
+	in the path SoundSensor, Battery, LightSensor. So if Z is given, then the two sensors are 
+	d-separated and independent.
+
+	d)
+
+	The network I constructed is a multiply-connected network.
+
+

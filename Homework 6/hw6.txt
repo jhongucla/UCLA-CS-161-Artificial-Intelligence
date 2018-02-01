@@ -1,0 +1,101 @@
+Justin Hong
+604565186
+
+1.
+
+(a) {x/A, y/B, z/B}
+
+(b) No unifier exists
+
+(c) {x/B, y/A}
+
+(d) {x/John, y/John}
+
+(e) No unifier exists
+
+2.
+
+(a) John likes all kinds of food
+	(A x) (Food(x) => Likes(John, x))
+
+	Apples are food.
+	Food(apples)
+
+	Chicken is food.
+	Food(chicken)
+
+	Anything anyone eats and isn't killed by is food.
+	(E x A y) (Eaten(y, x) & ~Killed(x, y) => Food(y))
+
+	If you are killed by something, you are not alive.
+	(E x A y) (Killed(y, x) => ~Alive(y))
+
+	Bill eats peanuts and is still alive.
+	Eaten(peanuts, Bill) & Alive(Bill)
+
+	Sue eats everything Bill eats.
+	(A x) (Eaten(x, Bill) => Eaten(x, Sue))
+
+(b) ~Food(x) | Likes(John, x)                    (1)
+	Food(apples)                                 (2)
+	Food(chicken)                                (3)
+	~Eaten(y, f(y)) | Killed(f(y), y) | Food(y)  (4)
+	~Killed(x, f(x)) | ~Alive(x)                 (5)
+	Eaten(peanuts, Bill)                         (6)
+	Alive(Bill)                                  (7)
+	~Eaten(x, Bill) | Eaten(x, Sue)              (8)
+
+(c) ~Eaten(y, f(y)) | Food(y) | ~Alive(f(y))     (9) (4, 5)
+	~Alive(Bill) | Food(peanuts)                 (10) (6, 9) and {y/peanuts, f(y)/Bill}
+	Food(peanuts)                                (11) (7, 10)
+	Likes(John, peanuts)                         (12) (1, 11)
+
+	Therefore John likes peanuts.
+
+(d) Eaten(peanuts, Sue)                          (6, 8) and {x/peanuts}
+
+	Therefore Sue eats peanuts.
+
+(e) If you don't eat, you die.
+	(A x E y) (~Eaten(y, x) => Dead(x))
+
+	If you die, you are not alive.
+	(A x) (Dead(x) => ~Alive(x))
+
+	Bill is alive.
+	Alive(Bill)
+
+	CNF:
+	~Food(x) | Likes(John, x)                    (1)
+	Food(apples)                                 (2)
+	Food(chicken)                                (3)
+	~Eaten(y, f(y)) | Killed(f(y), y) | Food(y)  (4)
+	~Killed(x, f(x)) | ~Alive(x)                 (5)
+	Eaten(peanuts, Bill)                         (6)
+	Eaten(f(x), x) | Dead(x)                     (7)
+	~Dead(x) | ~Alive(x)                         (8)
+	Alive(Bill)                                  (9)
+	~Eaten(x, Bill) | Eaten(x, Sue)              (10)
+
+	~Dead(Bill)                                  (11) (8, 9) and {x/Bill}
+	Eaten(f(Bill), Bill)                         (12) (7, 11) and {x/Bill}
+	Eaten(f(Bill), Sue)                          (13) (10, 12) and {x/f(Bill)}
+
+	We find that Sue eats everything Bill eats. That's as much as we know since we don't know what Bill eats.
+
+3. 
+
+The instance of the graph represented by graph1.txt with 3 colors is unsatisfiable. With 4 colors, the instance is satisfiable. These results show that this graph requires at least 4 colors to solve the graph coloring problem. 
+
+If we choose the 4 colors to be blue, red, green, and yellow, a solution to the graph coloring problem is as follows.
+1 - blue
+2 - red
+3 - yellow
+4 - red
+5 - green
+6 - yellow
+7 - green
+
+By repeating the same procedure for the graph represented by graph2.txt and incrementing the number of colors starting from 3, we see that the problem becomes satisfiable starting from 8 colors, so the minimum number of colors required to properly color the graph is 8.
+
+

@@ -1,0 +1,102 @@
+Justin Hong
+604565186
+
+1.  Generalized product rule
+	Pr(A,B | K) = Pr(A | B,K)Pr(B | K)                  (1)
+	Pr(A,B,K)/Pr(K) = Pr(A,B,K)/Pr(B,K)*Pr(B,K)/Pr(K)   (2)
+	Pr(A,B,K)/Pr(K) = Pr(A,B,K)/Pr(K)                   (3)
+	Both sides are the same
+
+	Generalized Bayes' rule
+	Pr(A | B,K) = Pr(B | A,K)Pr(A | K)/Pr(B | K)
+	Pr(A,B | K)/Pr(B | K) = Pr(B,A,K)/Pr(K)/Pr(B | K) using (1) on the left side and (3) on the 
+	right side
+	Pr(A,B,K)/Pr(K)/Pr(B | K) = Pr(A,B,K)/Pr(K)/Pr(B | K) using (3) on the left side
+	Both sides are the same
+
+2.  Bayesian network (Coin is root with X1, X2, X3 as children):
+          ---> X1
+	Coin ----> X2
+          ---> X3
+
+    CPT for Coin
+
+    Coin | P(Coin)
+      a  |   1/3
+      b  |   1/3
+      c  |   1/3
+
+    CPT for Xi (The CPT for X1, X2, X3 given Coin are the same)
+
+    Coin |   Xi   | P(Xi|C)
+      a  |  heads |   0.2
+      b  |  heads |   0.6
+      c  |  heads |   0.8
+
+
+3.  The probabilities of the events α1, α2, α3 are 
+	Pr(α1) = 9/13
+	Pr(α2) = 8/13
+	Pr(α3) = Pr(Square | One v Black) = 
+	Pr(Square ^ (One v Black))/Pr(One v Black) = (7/13)/(11/13) = 7/11
+
+	Joint Probability Distribution
+
+	World | Black | Square | One | Probability
+	   1  |   T   |   T    |  T  |    2/13
+	   2  |   T   |   T    |  F  |    4/13
+	   3  |   T   |   F    |  T  |    1/13
+	   4  |   T   |   F    |  F  |    2/13
+	   5  |   F   |   T    |  T  |    1/13
+	   6  |   F   |   T    |  F  |    1/13
+	   7  |   F   |   F    |  T  |    1/13
+	   8  |   F   |   F    |  F  |    1/13
+
+	α1 holds in worlds 1, 2, 3, and 4 so its probability is 
+	Pr(α1) = Pr(w1) + Pr(w2) + Pr(w3) + Pr(w4) = 9/13
+
+	α2 holds in worlds 1, 2, 5, and 6 so its probability is 
+	Pr(α2) = Pr(w1) + Pr(w2) + Pr(w5) + Pr(w6) = 8/13
+
+	α3 holds in worlds 1, 2, and 5 divided by worlds 1, 2, 3, 4, 5, and 7 so its probability is 
+	Pr(α3) = (Pr(w1) + Pr(w2) + Pr(w5))/(Pr(w1) + Pr(w2) + Pr(w3) + Pr(w4) + Pr(w5) + Pr(w7))
+	= 7/11
+
+	α = Square and β = One are independent given γ = not Black.
+	α = not One and β = Square are independent given γ = not Black.
+
+4.  (a) I(A,∅,{B,E})
+	    I(B,∅,{A,C})
+	    I(C,A,{B,D,E})
+	    I(D,{A,B},{C,E})
+	    I(E,B,{A,C,D,F,G})
+	    I(F,{C,D},{A,B,E})
+	    I(G,F,{A,B,C,D,E,H})
+	    I(H,{E,F},{A,B,C,D,G})
+
+	(b) d_separated(A, BH, E)
+		False because F and E converge on H and H is known. Since F is sequential from A, 
+		A and E are not independent
+
+		d_separated(G, D, E)
+		True since D is known and it blocks the path between G and E through B
+
+		d_separated(AB, F, GH)
+		False since B can connect with H through E even though F is known
+
+	(c) Pr(a,b,c,d,e,f,g,h) = Pr(a|b,c,d,e,f,g,h) * Pr(b,c,d,e,f,g,h)
+		= Pr(a|b,c,d,e,f,g,h) * Pr(b|c,d,e,f,g,h) * Pr(c,d,e,f,g,h)
+		= ...
+		= Pr(a|b,c,d,e,f,g,h) * Pr(b|c,d,e,f,g,h) * Pr(c|d,e,f,g,h) * 
+		Pr(d|e,f,g,h) * Pr(e|f,g,h) * Pr(f|g,h) * Pr(g|h) * Pr(h)
+
+	(d) Pr(A = 0, B = 0) = Pr(A = 0) * Pr(B = 0) = 0.8 * 0.3 = 0.24
+		We can multiply Pr(A = 0) and Pr(B = 0) since A and B are independent
+
+		Pr(E = 1 | A = 1) = Pr(E = 1, A = 1)/Pr(A = 1)
+		= [Pr(A = 1) * Pr(E = 1)]/Pr(A = 1) = Pr(E = 1)
+		= Pr(E = 1, B = 0) + Pr(E = 1, B = 1)
+		= Pr(E = 1 | B = 0) * Pr(B = 0) + Pr(E = 1 | B = 1) * Pr(B = 1)
+		= 0.9 * 0.3 + 0.1 * 0.7 = 0.34
+		The probability is the same as Pr(E = 1) since A and E are independent
+
